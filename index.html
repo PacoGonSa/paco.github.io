@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   viewport-fit=cover">
+
+    <title>Para ti 🌷</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+
+            background: #050505;
+            color: white;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+
+        /* =================================
+           ESCENA
+        ================================= */
+
+        .scene {
+
+            width: 100%;
+            height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    #211416 0%,
+                    #0e090a 35%,
+                    #050505 75%
+                );
+        }
+
+
+        /* =================================
+           INTRODUCCIÓN
+        ================================= */
+
+        .intro {
+
+            position: absolute;
+
+            text-align: center;
+
+            z-index: 20;
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
+        }
+
+        .intro h1 {
+
+            font-size: 25px;
+
+            font-weight: 300;
+
+            letter-spacing: 1px;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+        }
+
+
+        .heart-button {
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(255, 160, 170, .65);
+
+            background: transparent;
+
+            color: #ff9eaa;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            transition:
+                transform .4s ease,
+                background .4s ease;
+        }
+
+        .heart-button:active {
+
+            transform: scale(.9);
+        }
+
+        .heart-button:hover {
+
+            background:
+                rgba(255, 140, 150, .1);
+
+            transform: scale(1.08);
+        }
+
+
+        .intro.hide {
+
+            opacity: 0;
+
+            transform:
+                translateY(-20px);
+
+            pointer-events: none;
+        }
+
+
+        /* =================================
+           FLOR
+        ================================= */
+
+        .flower-container {
+
+            position: absolute;
+
+            width: 220px;
+            height: 440px;
+
+            bottom: 13%;
+
+            opacity: 0;
+
+            transform:
+                translateY(35px);
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
+        }
+
+
+        .flower-container.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =================================
+           TALLO
+        ================================= */
+
+        .stem {
+
+            position: absolute;
+
+            width: 5px;
+
+            height: 270px;
+
+            left: 50%;
+            bottom: 0;
+
+            transform:
+                translateX(-50%)
+                scaleY(0);
+
+            transform-origin:
+                bottom center;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    #18220f,
+                    #526b31,
+                    #1b250f
+                );
+
+            transition:
+                transform 2s
+                cubic-bezier(.2,.8,.2,1);
+        }
+
+
+        .flower-container.grow
+        .stem {
+
+            transform:
+                translateX(-50%)
+                scaleY(1);
+        }
+
+
+        /* =================================
+           HOJAS
+        ================================= */
+
+        .leaf {
+
+            position: absolute;
+
+            width: 75px;
+            height: 34px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4a6330,
+                    #1d2815
+                );
+
+            opacity: 0;
+
+            border-radius:
+                100% 0 100% 0;
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
+        }
+
+
+        .leaf-left {
+
+            left: 22px;
+            bottom: 92px;
+
+            transform:
+                rotate(-20deg)
+                scale(.5);
+        }
+
+
+        .leaf-right {
+
+            right: 22px;
+            bottom: 150px;
+
+            transform:
+                rotate(200deg)
+                scale(.5);
+        }
+
+
+        .flower-container.grow
+        .leaf {
+
+            opacity: 1;
+
+            transform:
+                rotate(-20deg)
+                scale(1);
+        }
+
+
+        .flower-container.grow
+        .leaf-right {
+
+            transform:
+                rotate(200deg)
+                scale(1);
+        }
+
+
+        /* =================================
+           CAPULLO
+        ================================= */
+
+        .flower {
+
+            position: absolute;
+
+            width: 160px;
+            height: 190px;
+
+            left: 50%;
+            top: 0;
+
+            transform:
+                translateX(-50%)
+                scale(.05);
+
+            transform-origin:
+                center bottom;
+
+            opacity: 0;
+
+            transition:
+                transform 2.5s
+                cubic-bezier(.15,.7,.25,1.25),
+                opacity 1s ease;
+        }
+
+
+        .flower-container.bloom
+        .flower {
+
+            transform:
+                translateX(-50%)
+                scale(1);
+
+            opacity: 1;
+        }
+
+
+        /* =================================
+           PÉTALOS
+        ================================= */
+
+        .petal {
+
+            position: absolute;
+
+            width: 65px;
+            height: 115px;
+
+            left: 50%;
+            top: 48%;
+
+            border-radius:
+                70% 70%
+                45% 45%;
+
+            transform-origin:
+                50% 90%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffd9dd 0%,
+                    #ed9aa5 45%,
+                    #9f505b 100%
+                );
+
+            box-shadow:
+                0 0 18px
+                rgba(255,150,160,.12);
+
+            transition:
+                transform 2.8s
+                cubic-bezier(.15,.75,.25,1.15);
+        }
+
+
+        /*
+            Al principio todos los pétalos
+            están prácticamente juntos.
+        */
+
+        .p1 {
+            transform:
+                translate(-50%, -90%)
+                rotate(0deg)
+                scale(.65);
+        }
+
+        .p2 {
+            transform:
+                translate(-50%, -90%)
+                rotate(45deg)
+                scale(.65);
+        }
+
+        .p3 {
+            transform:
+                translate(-50%, -90%)
+                rotate(90deg)
+                scale(.65);
+        }
+
+        .p4 {
+            transform:
+                translate(-50%, -90%)
+                rotate(135deg)
+                scale(.65);
+        }
+
+        .p5 {
+            transform:
+                translate(-50%, -90%)
+                rotate(180deg)
+                scale(.65);
+        }
+
+        .p6 {
+            transform:
+                translate(-50%, -90%)
+                rotate(225deg)
+                scale(.65);
+        }
+
+        .p7 {
+            transform:
+                translate(-50%, -90%)
+                rotate(270deg)
+                scale(.65);
+        }
+
+        .p8 {
+            transform:
+                translate(-50%, -90%)
+                rotate(315deg)
+                scale(.65);
+        }
+
+
+        /*
+            Cuando florece, los pétalos
+            se expanden.
+        */
+
+        .flower-container.bloom .p1 {
+            transform:
+                translate(-50%, -90%)
+                rotate(0deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p2 {
+            transform:
+                translate(-50%, -90%)
+                rotate(45deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p3 {
+            transform:
+                translate(-50%, -90%)
+                rotate(90deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p4 {
+            transform:
+                translate(-50%, -90%)
+                rotate(135deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p5 {
+            transform:
+                translate(-50%, -90%)
+                rotate(180deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p6 {
+            transform:
+                translate(-50%, -90%)
+                rotate(225deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p7 {
+            transform:
+                translate(-50%, -90%)
+                rotate(270deg)
+                scale(1);
+        }
+
+        .flower-container.bloom .p8 {
+            transform:
+                translate(-50%, -90%)
+                rotate(315deg)
+                scale(1);
+        }
+
+
+        /* =================================
+           CENTRO
+        ================================= */
+
+        .center {
+
+            position: absolute;
+
+            width: 32px;
+            height: 32px;
+
+            left: 50%;
+            top: 48%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0);
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #ffe19a 0%,
+                    #d68a43 60%,
+                    #99542d 100%
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(255,210,120,.55);
+
+            transition:
+                transform 1.2s
+                cubic-bezier(.2,.8,.2,1.3);
+        }
+
+
+        .flower-container.bloom
+        .center {
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+        }
+
+
+        /* =================================
+           PÉTALOS FLOTANDO
+        ================================= */
+
+        .falling-petals {
+
+            position: absolute;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+        }
+
+
+        .falling-petal {
+
+            position: absolute;
+
+            width: 11px;
+            height: 17px;
+
+            background: #e99aa4;
+
+            border-radius:
+                100% 0 100% 0;
+
+            opacity: 0;
+
+            animation:
+                falling linear infinite;
+        }
+
+
+        .falling-petal:nth-child(1) {
+            left: 12%;
+            animation-duration: 8s;
+            animation-delay: 1s;
+        }
+
+        .falling-petal:nth-child(2) {
+            left: 28%;
+            animation-duration: 7s;
+            animation-delay: 3s;
+        }
+
+        .falling-petal:nth-child(3) {
+            left: 72%;
+            animation-duration: 9s;
+            animation-delay: 2s;
+        }
+
+        .falling-petal:nth-child(4) {
+            left: 88%;
+            animation-duration: 7s;
+            animation-delay: 4s;
+        }
+
+        .falling-petal:nth-child(5) {
+            left: 5%;
+            animation-duration: 7s;
+            animation-delay: 3s;
+        }
+
+        .falling-petal:nth-child(6) {
+            left: 62%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+
+        .falling-petal:nth-child(7) {
+            left: 57%;
+            animation-duration: 6s;
+            animation-delay: 4s;
+        }
+
+
+        /* =================================
+           MENSAJE FINAL
+        ================================= */
+
+        .message {
+
+            position: absolute;
+
+            width: min(86%, 360px);
+
+            padding:
+                30px 25px;
+
+            background:
+                rgba(255,250,250,.97);
+
+            color: #302626;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.65);
+
+            opacity: 0;
+
+            transform:
+                scale(.75)
+                translateY(20px);
+
+            pointer-events: none;
+
+            z-index: 30;
+
+            transition:
+                opacity 1s ease,
+                transform 1s
+                cubic-bezier(.17,.67,.3,1.25);
+        }
+
+
+        .message.visible {
+
+            opacity: 1;
+
+            transform:
+                scale(1)
+                translateY(0);
+
+            pointer-events: auto;
+        }
+
+
+        .message h2 {
+
+            font-size: 21px;
+
+            font-weight: 400;
+
+            line-height: 1.4;
+
+            margin-bottom: 15px;
+        }
+
+
+        .message p {
+
+            font-size: 16px;
+
+            line-height: 1.65;
+
+            color: #554949;
+        }
+
+
+        .small-heart {
+
+            margin-top: 20px;
+
+            font-size: 25px;
+
+            color: #d8737e;
+
+            animation:
+                heartbeat 2s
+                ease-in-out infinite;
+        }
+
+
+        /* =================================
+           ANIMACIONES
+        ================================= */
+
+        @keyframes falling {
+
+            0% {
+
+                top: -10%;
+
+                opacity: 0;
+
+                transform:
+                    translateX(0)
+                    rotate(0deg);
+            }
+
+            15% {
+
+                opacity: .75;
+            }
+
+            100% {
+
+                top: 110%;
+
+                opacity: 0;
+
+                transform:
+                    translateX(70px)
+                    rotate(360deg);
+            }
+        }
+
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="scene">
+
+
+    <!-- ================================
+         INTRO
+    ================================= -->
+
+    <div class="intro" id="intro">
+
+        <h1>
+            De mí<br>
+            para tú.
+        </h1>
+
+        <button
+            class="heart-button"
+            id="startButton">
+
+            ❤️
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ================================
+         FLOR
+    ================================= -->
+
+    <div
+        class="flower-container"
+        id="flower">
+
+
+        <div class="stem"></div>
+
+
+        <div
+            class="leaf leaf-left">
+        </div>
+
+
+        <div
+            class="leaf leaf-right">
+        </div>
+
+
+        <div class="flower">
+
+
+            <div class="petal p1"></div>
+
+            <div class="petal p2"></div>
+
+            <div class="petal p3"></div>
+
+            <div class="petal p4"></div>
+
+            <div class="petal p5"></div>
+
+            <div class="petal p6"></div>
+
+            <div class="petal p7"></div>
+
+            <div class="petal p8"></div>
+
+
+            <div class="center"></div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         PÉTALOS
+    ================================= -->
+
+    <div class="falling-petals">
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+        <div class="falling-petal"></div>
+
+    </div>
+
+
+
+    <!-- ================================
+         MENSAJE
+    ================================= -->
+
+    <div
+        class="message"
+        id="message">
+
+
+        <h2>
+            Buenas noches chula 😘
+        </h2>
+
+
+        <!-- <p>
+            
+        </p> -->
+
+
+        <div class="small-heart">
+            ♡
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    const startButton =
+        document.getElementById("startButton");
+
+    const intro =
+        document.getElementById("intro");
+
+    const flower =
+        document.getElementById("flower");
+
+    const message =
+        document.getElementById("message");
+
+
+    startButton.addEventListener(
+        "click",
+        () => {
+
+
+            /*
+                1. Desaparece la introducción
+            */
+
+            intro.classList.add("hide");
+
+
+            /*
+                2. Aparece la flor
+            */
+
+            setTimeout(() => {
+
+                flower.classList.add(
+                    "visible"
+                );
+
+            }, 700);
+
+
+            /*
+                3. Crece el tallo
+            */
+
+            setTimeout(() => {
+
+                flower.classList.add(
+                    "grow"
+                );
+
+            }, 1200);
+
+
+            /*
+                4. Comienza a abrirse
+            */
+
+            setTimeout(() => {
+
+                flower.classList.add(
+                    "bloom"
+                );
+
+            }, 2800);
+
+
+            /*
+                5. Aparece el mensaje
+            */
+
+            setTimeout(() => {
+
+                message.classList.add(
+                    "visible"
+                );
+
+            }, 6000);
+
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
